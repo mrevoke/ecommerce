@@ -16,7 +16,8 @@ class _HomePageState extends State<HomePage> {
   String _selectedCategory = 'All';
   RangeValues _selectedPriceRange = RangeValues(0, 1000);
   String _selectedSort = 'Ratings';
-
+  String _selectedGender = 'All';
+  String _selectedColor = 'All';
   @override
   void initState() {
     super.initState();
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
                 'num_reviews': shoeData['num_reviews'] ?? 0,
                 'image': shoeImage,
                 'brand': shoeData['brand'] ?? '',
+                'colors':shoeData['colors']
               });
             });
           }
@@ -77,7 +79,21 @@ class _HomePageState extends State<HomePage> {
           _selectedCategory == 'All' || shoe['brand'] == _selectedCategory;
       final matchesPriceRange = shoe['price'] >= _selectedPriceRange.start &&
           shoe['price'] <= _selectedPriceRange.end;
-      return matchesCategory && matchesPriceRange;
+
+      // Check if the shoe colors contain the selected color
+      final matchesColor = _selectedColor == 'All' ||
+          (shoe['colors']?.contains(_selectedColor) ?? false);
+
+      final matchesGender =
+          _selectedGender == 'All' || (shoe['gender'] == _selectedGender);
+      print(shoe['colors']);
+      print(
+          'Shoe: ${shoe['name']} - Color: ${shoe['colors']} - Selected Color: $_selectedColor - Match: $matchesColor');
+
+      return matchesCategory &&
+          matchesPriceRange &&
+          matchesColor &&
+          matchesGender;
     }).toList();
 
     if (_selectedSort == 'Ratings') {
@@ -179,15 +195,14 @@ class _HomePageState extends State<HomePage> {
                       isScrollControlled: true,
                       builder: (context) {
                         return FilterScreen(
-                          onFilterApplied: (
-                            selectedBrand,
-                            selectedPriceRange,
-                            selectedSort
-                          ) {
+                          onFilterApplied: (selectedBrand, selectedPriceRange,
+                              selectedSort, selectedGender, selectedColor) {
                             setState(() {
                               _selectedCategory = selectedBrand;
                               _selectedPriceRange = selectedPriceRange;
                               _selectedSort = selectedSort;
+                              _selectedGender = selectedGender;
+                              _selectedColor = selectedColor;
                             });
                             Navigator.pop(context); // Close the modal
                           },

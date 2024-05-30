@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SortButtonsRow extends StatefulWidget {
-  final String selectedSort;
-  final Function(String) onSortSelected;
+class GenderButtonsRow extends StatefulWidget {
+  final String selectedGender;
+  final Function(String) onGenderSelected;
 
-  const SortButtonsRow({Key? key, required this.selectedSort, required this.onSortSelected}) : super(key: key);
+  const GenderButtonsRow({Key? key, required this.selectedGender, required this.onGenderSelected}) : super(key: key);
 
   @override
-  _SortButtonsRowState createState() => _SortButtonsRowState();
+  _GenderButtonsRowState createState() => _GenderButtonsRowState();
 }
 
-class _SortButtonsRowState extends State<SortButtonsRow> {
+class _GenderButtonsRowState extends State<GenderButtonsRow> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,23 +18,23 @@ class _SortButtonsRowState extends State<SortButtonsRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           SizedBox(width: 5),
-          _buildSortButton('Ratings'),
+          SizedBox(width: 5),
+          _buildGenderButton('man'),
           SizedBox(width: 20), // Adjust the width between buttons as needed
-          _buildSortButton('Highest Prices'),
+          _buildGenderButton('woman'),
           SizedBox(width: 20), // Adjust the width between buttons as needed
-          _buildSortButton('Lower Price'),
-           SizedBox(width: 5),
+          _buildGenderButton('unisex'),
+          SizedBox(width: 5),
         ],
       ),
     );
   }
 
-  Widget _buildSortButton(String sortOption) {
-    bool isSelected = sortOption == widget.selectedSort;
+  Widget _buildGenderButton(String genderOption) {
+    bool isSelected = genderOption == widget.selectedGender;
 
     return GestureDetector(
-      onTap: () => widget.onSortSelected(sortOption),
+      onTap: () => widget.onGenderSelected(genderOption),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class _SortButtonsRowState extends State<SortButtonsRow> {
           border: Border.all(color: Colors.black),
         ),
         child: Text(
-          sortOption,
+          genderOption,
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,
             fontSize: 16,
