@@ -1,11 +1,11 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
+
 class CheckoutPage extends StatefulWidget {
-  const CheckoutPage({super.key});
+  const CheckoutPage({Key? key}) : super(key: key);
 
   @override
   _CheckoutPageState createState() => _CheckoutPageState();
@@ -39,6 +39,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
     }
   }
 
+  Future<void> _placeOrder() async {
+    final response = await http.post(
+      Uri.parse('https://ecommerce-3ea9f-default-rtdb.firebaseio.com/orders.json'),
+      body: jsonEncode(_cartItems),
+    );
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Order placed successfully!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to place order. Please try again later.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double subtotal = _calculateSubtotal();
@@ -61,6 +78,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   5, // Adding 4 for Information, Order Details, Subtotal, and Delivery
               itemBuilder: (context, index) {
                 if (index == 0) {
+                  // Information section
                   return const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Padding(
@@ -111,6 +129,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   );
                 } else if (index == 1) {
+                  // Order Details section
                   return const Padding(
                     padding:
                         EdgeInsets.only(left: 26.0, right: 16, bottom: 5),
@@ -123,6 +142,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   );
                 } else if (index == _cartItems.length + 2) {
+                  // Payment Detail section
                   return ListTile(
                     title: Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10),
@@ -161,6 +181,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   );
                 } else if (index == _cartItems.length + 3) {
+                  // Shipping section
                   return ListTile(
                     title: Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10),
@@ -186,6 +207,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   );
                 } else if (index == _cartItems.length + 4) {
+                  // Total Order section
                   return ListTile(
                     title: Padding(
                       padding: const EdgeInsets.only(
@@ -221,7 +243,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   );
                 } else {
-                  // Subtracting 2 to get the correct index for _cartItems
+                  // Cart item card
                   final item = _cartItems[index - 2];
                   return _buildCartItemCard(item);
                 }
@@ -240,6 +262,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 const Text(
                   'Grand Total',
                   style: TextStyle(fontSize: 16, color: Colors.grey),
+               
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -253,12 +276,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ],
             ),
             ElevatedButton(
-              onPressed: () {
-                // Implement payment logic
-              },
+              onPressed: _placeOrder,
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.black),
-                foregroundColor: WidgetStateProperty.all(Colors.white),
+                backgroundColor: MaterialStateProperty.all(Colors.black),
+                foregroundColor: MaterialStateProperty.all(Colors.white),
               ),
               child: const Padding(
                 padding: EdgeInsets.all(12.0),
