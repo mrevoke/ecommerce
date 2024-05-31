@@ -1,9 +1,9 @@
 // ignore_for_file: use_super_parameters, library_private_types_in_public_api, unnecessary_const
 
-import 'package:ecommerce/cart_page.dart';
-import 'package:ecommerce/color_button_row.dart';
-import 'package:ecommerce/gender_button_row.dart';
-import 'package:ecommerce/sort_button_row.dart';
+import 'package:ecommerce/Cart/cart_page.dart';
+import 'package:ecommerce/Filter/color_button_row.dart';
+import 'package:ecommerce/Filter/gender_button_row.dart';
+import 'package:ecommerce/Filter/sort_button_row.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'brands_row.dart';

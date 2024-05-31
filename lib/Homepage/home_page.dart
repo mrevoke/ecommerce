@@ -1,12 +1,12 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
-import 'package:ecommerce/cart_page.dart';
-import 'package:ecommerce/shoe_detail_file.dart';
+import 'package:ecommerce/Cart/cart_page.dart';
+import 'package:ecommerce/Shoe_detail/shoe_detail_file.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_database/firebase_database.dart';
-import 'shoe_card.dart';
-import 'filter_screen.dart'; // Import the new ShoeDetailPage
+import '../Shoe_detail/shoe_card.dart';
+import '../Filter/filter_screen.dart'; // Import the new ShoeDetailPage
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

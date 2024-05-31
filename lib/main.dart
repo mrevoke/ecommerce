@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // Import the HomePage widget
+import 'Homepage/home_page.dart'; // Import the HomePage widget
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

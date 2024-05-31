@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:ecommerce/cart_page.dart';
+import 'package:ecommerce/Cart/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class AllReviewsPage extends StatefulWidget {
@@ -120,8 +120,7 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           decoration: BoxDecoration(
-          //  color: label == _selectedFilter ? Colors.blue : Colors.grey[300],
-            borderRadius: BorderRadius.circular(20.0),
+         borderRadius: BorderRadius.circular(20.0),
           ),
           child: Text(
             label,
