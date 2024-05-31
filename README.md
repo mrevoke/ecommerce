@@ -82,10 +82,3 @@ This project is a Flutter mobile application developed for Priority Soft's devel
 - **Reviews**: 
   ![Reviews](images/reviews.png)
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
