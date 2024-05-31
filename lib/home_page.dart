@@ -1,8 +1,10 @@
+import 'package:ecommerce/cart_page.dart';
+import 'package:ecommerce/shoe_detail_file.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_database/firebase_database.dart';
 import 'shoe_card.dart';
-import 'filter_screen.dart';
+import 'filter_screen.dart'; // Import the new ShoeDetailPage
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   String _selectedSort = 'Ratings';
   String _selectedGender = 'All';
   String _selectedColor = 'All';
+
   @override
   void initState() {
     super.initState();
@@ -25,8 +28,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetchShoesDetails() async {
-    DatabaseReference ref =
-        FirebaseDatabase.instance.reference().child('shoes');
+    DatabaseReference ref = FirebaseDatabase.instance.reference().child('shoes');
     try {
       DataSnapshot snapshot = await ref.get();
       if (snapshot.value != null) {
@@ -40,6 +42,7 @@ class _HomePageState extends State<HomePage> {
 
             setState(() {
               _shoes.add({
+                'imageUrl':imageUrl,
                 'name': shoeData['name'] ?? '',
                 'price': shoeData['price'] ?? 0,
                 'gender': shoeData['gender'] ?? '',
@@ -47,7 +50,10 @@ class _HomePageState extends State<HomePage> {
                 'num_reviews': shoeData['num_reviews'] ?? 0,
                 'image': shoeImage,
                 'brand': shoeData['brand'] ?? '',
-                'colors':shoeData['colors']
+                'colors': shoeData['colors'],
+                'available_sizes': shoeData['available_sizes'],
+                'description':shoeData['description'],
+                'reviews':shoeData['reviews'],
               });
             });
           }
@@ -75,25 +81,15 @@ class _HomePageState extends State<HomePage> {
 
   List<Map<String, dynamic>> _getFilteredShoes() {
     var filteredShoes = _shoes.where((shoe) {
-      final matchesCategory =
-          _selectedCategory == 'All' || shoe['brand'] == _selectedCategory;
-      final matchesPriceRange = shoe['price'] >= _selectedPriceRange.start &&
-          shoe['price'] <= _selectedPriceRange.end;
+      final matchesCategory = _selectedCategory == 'All' || shoe['brand'] == _selectedCategory;
+      final matchesPriceRange = shoe['price'] >= _selectedPriceRange.start && shoe['price'] <= _selectedPriceRange.end;
 
       // Check if the shoe colors contain the selected color
-      final matchesColor = _selectedColor == 'All' ||
-          (shoe['colors']?.contains(_selectedColor) ?? false);
+      final matchesColor = _selectedColor == 'All' || (shoe['colors']?.contains(_selectedColor) ?? false);
 
-      final matchesGender =
-          _selectedGender == 'All' || (shoe['gender'] == _selectedGender);
-      print(shoe['colors']);
-      print(
-          'Shoe: ${shoe['name']} - Color: ${shoe['colors']} - Selected Color: $_selectedColor - Match: $matchesColor');
+      final matchesGender = _selectedGender == 'All' || (shoe['gender'] == _selectedGender);
 
-      return matchesCategory &&
-          matchesPriceRange &&
-          matchesColor &&
-          matchesGender;
+      return matchesCategory && matchesPriceRange && matchesColor && matchesGender;
     }).toList();
 
     if (_selectedSort == 'Ratings') {
@@ -135,6 +131,8 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         icon: const Icon(Icons.shopping_bag_outlined),
                         onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+
                           // Handle shopping bag button press
                         },
                       ),
@@ -159,8 +157,7 @@ class _HomePageState extends State<HomePage> {
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 8.0,
                               crossAxisSpacing: 8.0,
@@ -169,13 +166,23 @@ class _HomePageState extends State<HomePage> {
                             itemCount: _getFilteredShoes().length,
                             itemBuilder: (context, index) {
                               var shoe = _getFilteredShoes()[index];
-                              return ShoeCard(
-                                shoeName: shoe['name'],
-                                shoePrice: shoe['price'],
-                                shoeGender: shoe['gender'],
-                                shoeRating: shoe['rating'],
-                                reviewCount: shoe['num_reviews'],
-                                firstImage: shoe['image'],
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ShoeDetailPage(shoe: shoe),
+                                    ),
+                                  );
+                                },
+                                child: ShoeCard(
+                                  shoeName: shoe['name'],
+                                  shoePrice: shoe['price'],
+                                  shoeGender: shoe['gender'],
+                                  shoeRating: shoe['rating'],
+                                  reviewCount: shoe['num_reviews'],
+                                  firstImage: shoe['image'],
+                                ),
                               );
                             },
                           ),
@@ -195,8 +202,7 @@ class _HomePageState extends State<HomePage> {
                       isScrollControlled: true,
                       builder: (context) {
                         return FilterScreen(
-                          onFilterApplied: (selectedBrand, selectedPriceRange,
-                              selectedSort, selectedGender, selectedColor) {
+                          onFilterApplied: (selectedBrand, selectedPriceRange, selectedSort, selectedGender, selectedColor) {
                             setState(() {
                               _selectedCategory = selectedBrand;
                               _selectedPriceRange = selectedPriceRange;

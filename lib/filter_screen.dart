@@ -1,16 +1,16 @@
+import 'package:ecommerce/cart_page.dart';
 import 'package:ecommerce/color_button_row.dart';
 import 'package:ecommerce/gender_button_row.dart';
 import 'package:ecommerce/sort_button_row.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'brands_row.dart';
-import 'price_range_row.dart'; // Import SortButtonsRow widget
+import 'price_range_row.dart';
 
 class FilterScreen extends StatefulWidget {
   final Function(String, RangeValues, String, String, String) onFilterApplied;
 
-  const FilterScreen({Key? key, required this.onFilterApplied})
-      : super(key: key);
+  const FilterScreen({Key? key, required this.onFilterApplied}) : super(key: key);
 
   @override
   _FilterScreenState createState() => _FilterScreenState();
@@ -52,6 +52,17 @@ class _FilterScreenState extends State<FilterScreen> {
     await _prefs.setString('selectedColor', _selectedColor);
   }
 
+  Future<void> _resetFilters() async {
+    setState(() {
+      _selectedBrand = 'All';
+      _priceRange = const RangeValues(0, 1000);
+      _selectedSort = 'Ratings';
+      _selectedGender = 'All';
+      _selectedColor = 'All';
+    });
+    await _saveFilters();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,13 +86,14 @@ class _FilterScreenState extends State<FilterScreen> {
                     const Spacer(),
                     const Text(
                       "Filter",
-                      style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.w400),
+                      style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
                     ),
                     const Spacer(),
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined),
                       onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+
                         // Handle shopping bag button press
                       },
                     ),
@@ -91,33 +103,33 @@ class _FilterScreenState extends State<FilterScreen> {
                   padding: EdgeInsets.only(top: 20.0, left: 20),
                   child: Text(
                     "Brands",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
                   ),
                 ),
                 const SizedBox(height: 10),
                 BrandsRow(
-                    selectedBrand: _selectedBrand,
-                    onBrandSelected: _onBrandSelected),
+                  selectedBrand: _selectedBrand,
+                  onBrandSelected: _onBrandSelected,
+                ),
                 const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.only(top: 20.0, left: 20),
                   child: Text(
                     "Price Range",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
                   ),
                 ),
                 const SizedBox(height: 20),
                 PriceRangeRow(
-                    priceRange: _priceRange, onRangeChanged: _onRangeChanged),
+                  priceRange: _priceRange,
+                  onRangeChanged: _onRangeChanged,
+                ),
                 const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.only(top: 20.0, left: 20),
                   child: Text(
                     "Sort By",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -136,8 +148,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   padding: EdgeInsets.only(top: 20.0, left: 20),
                   child: Text(
                     "Gender",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -156,8 +167,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   padding: EdgeInsets.only(top: 20.0, left: 20),
                   child: Text(
                     "Color",
-                    style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w400),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -177,37 +187,18 @@ class _FilterScreenState extends State<FilterScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(color: Color.fromARGB(153, 223, 222, 222),
+      bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(153, 223, 222, 222),
         elevation: 0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+           
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.4,
               height: MediaQuery.of(context).size.width * 0.15,
               child: ElevatedButton(
-                onPressed: () {
-                  widget.onFilterApplied(_selectedBrand, _priceRange,
-                      _selectedSort, _selectedGender, _selectedColor);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                ),
-                child: Text(
-                  'Apply',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
-              height: MediaQuery.of(context).size.width * 0.15,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Reset filter
-                  // Implement your reset logic here
-                },
+                onPressed: _resetFilters,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
@@ -218,6 +209,29 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
                 child: Text(
                   'Reset',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+            ),
+             SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: MediaQuery.of(context).size.width * 0.15,
+              child: ElevatedButton(
+                onPressed: () {
+                  widget.onFilterApplied(
+                    _selectedBrand,
+                    _priceRange,
+                    _selectedSort,
+                    _selectedGender,
+                    _selectedColor,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                ),
+                child: Text(
+                  'Apply',
                   style: TextStyle(fontSize: 24),
                 ),
               ),
