@@ -4,7 +4,7 @@ class PriceRangeRow extends StatelessWidget {
   final RangeValues priceRange;
   final Function(RangeValues) onRangeChanged;
 
-  const PriceRangeRow({Key? key, required this.priceRange, required this.onRangeChanged}) : super(key: key);
+  const PriceRangeRow({super.key, required this.priceRange, required this.onRangeChanged});
 
   @override
   Widget build(BuildContext context) {

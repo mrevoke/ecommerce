@@ -4,7 +4,7 @@ class BrandsRow extends StatelessWidget {
   final String selectedBrand;
   final Function(String) onBrandSelected;
 
-  const BrandsRow({Key? key, required this.selectedBrand, required this.onBrandSelected}) : super(key: key);
+  const BrandsRow({super.key, required this.selectedBrand, required this.onBrandSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class BrandsRow extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             brand,
             style: TextStyle(

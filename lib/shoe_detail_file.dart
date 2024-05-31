@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, deprecated_member_use
+
 import 'package:ecommerce/all_review_page.dart';
 import 'package:ecommerce/cart_page.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/material.dart';
 class ShoeDetailPage extends StatefulWidget {
   final Map<String, dynamic> shoe;
 
-  const ShoeDetailPage({Key? key, required this.shoe}) : super(key: key);
+  const ShoeDetailPage({super.key, required this.shoe});
 
   @override
   _ShoeDetailPageState createState() => _ShoeDetailPageState();
@@ -51,119 +53,117 @@ class _ShoeDetailPageState extends State<ShoeDetailPage> {
           ),
         ],
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 0, 16, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: widget.shoe['image'] ?? Container(), // Display the shoe image
-                      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16.0, 0, 16, 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: FractionallySizedBox(
+                  widthFactor: 0.8,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: widget.shoe['image'] ?? Container(), // Display the shoe image
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Wrap(
-                      children: [
-                        for (var colorName in predefinedColors)
-                          _buildColorButton(colorName),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Text(
-                  widget.shoe['name'],
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Rating(
-                      rating: widget.shoe['rating'],
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      widget.shoe['rating'].toString(),
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      '(${widget.shoe['num_reviews']} reviews)',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Size',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Wrap(
-                      children: [
-                        for (var shoesize in predefinedSizes)
-                          _buildSizeButton(shoesize),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Description',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  widget.shoe['description'],
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Reviews (${widget.shoe['num_reviews']})',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                _buildReviewCards(),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AllReviewsPage(reviews: widget.shoe['reviews']),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Color.fromARGB(255, 0, 0, 0),
-                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        side: BorderSide(color: Colors.black),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Wrap(
+                    children: [
+                      for (var colorName in predefinedColors)
+                        _buildColorButton(colorName),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Text(
+                widget.shoe['name'],
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Rating(
+                    rating: widget.shoe['rating'],
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    widget.shoe['rating'].toString(),
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    '(${widget.shoe['num_reviews']} reviews)',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Size',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Wrap(
+                    children: [
+                      for (var shoesize in predefinedSizes)
+                        _buildSizeButton(shoesize),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Description',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                widget.shoe['description'],
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Reviews (${widget.shoe['num_reviews']})',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              _buildReviewCards(),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AllReviewsPage(reviews: widget.shoe['reviews']),
                       ),
-                    ),
-                    child: Text(
-                      'SEE ALL REVIEWS',
-                      style: TextStyle(fontSize: 18),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Color.fromARGB(255, 0, 0, 0),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: BorderSide(color: Colors.black),
                     ),
                   ),
+                  child: Text(
+                    'SEE ALL REVIEWS',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -429,7 +429,7 @@ void _showAddToCartDialog(BuildContext context) {
             ),
              SizedBox(height: 20),
            
-            Text(_quantity.toString()+ " items Total")
+            Text("$_quantity items Total")
           ],
         ),
       actions: [
@@ -441,14 +441,14 @@ void _showAddToCartDialog(BuildContext context) {
           onPressed: () {
             Navigator.of(context).pop();
           },
+          style: ButtonStyle(
+            side: WidgetStateProperty.all<BorderSide>(
+              BorderSide(color: Colors.black),
+            ),
+          ),
           child: Text(
             "BACK EXPLORE",
             style: TextStyle(color: Colors.black),
-          ),
-          style: ButtonStyle(
-            side: MaterialStateProperty.all<BorderSide>(
-              BorderSide(color: Colors.black),
-            ),
           ),
         ),
       ),
@@ -464,12 +464,12 @@ void _showAddToCartDialog(BuildContext context) {
  
             // Navigate to cart page
           },
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(Colors.black),
+          ),
           child: Text(
             " GO TO CART ",
             style: TextStyle(color: Colors.white),
-          ),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
           ),
         ),
       ),
@@ -620,7 +620,7 @@ void _showAddToCartDialog(BuildContext context) {
 class Rating extends StatelessWidget {
   final double rating;
 
-  Rating({required this.rating});
+  const Rating({super.key, required this.rating});
 
   @override
   Widget build(BuildContext context) {

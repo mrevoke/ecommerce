@@ -1,10 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class SortButtonsRow extends StatefulWidget {
   final String selectedSort;
   final Function(String) onSortSelected;
 
-  const SortButtonsRow({Key? key, required this.selectedSort, required this.onSortSelected}) : super(key: key);
+  const SortButtonsRow({super.key, required this.selectedSort, required this.onSortSelected});
 
   @override
   _SortButtonsRowState createState() => _SortButtonsRowState();
@@ -18,13 +20,13 @@ class _SortButtonsRowState extends State<SortButtonsRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           SizedBox(width: 5),
+           const SizedBox(width: 5),
           _buildSortButton('Ratings'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildSortButton('Highest Prices'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildSortButton('Lower Price'),
-           SizedBox(width: 5),
+           const SizedBox(width: 5),
         ],
       ),
     );
@@ -36,7 +38,7 @@ class _SortButtonsRowState extends State<SortButtonsRow> {
     return GestureDetector(
       onTap: () => widget.onSortSelected(sortOption),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
           color: isSelected ? Colors.black : Colors.white,
           borderRadius: BorderRadius.circular(20),

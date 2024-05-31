@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:ecommerce/cart_page.dart';
 import 'package:ecommerce/shoe_detail_file.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +9,16 @@ import 'shoe_card.dart';
 import 'filter_screen.dart'; // Import the new ShoeDetailPage
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> _shoes = [];
+  final List<Map<String, dynamic>> _shoes = [];
   String _selectedCategory = 'All';
-  RangeValues _selectedPriceRange = RangeValues(0, 1000);
+  RangeValues _selectedPriceRange = const RangeValues(0, 1000);
   String _selectedSort = 'Ratings';
   String _selectedGender = 'All';
   String _selectedColor = 'All';
@@ -106,14 +108,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SafeArea(
         child: Stack(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Padding(
@@ -131,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         icon: const Icon(Icons.shopping_bag_outlined),
                         onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartPage()));
 
                           // Handle shopping bag button press
                         },
@@ -139,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(

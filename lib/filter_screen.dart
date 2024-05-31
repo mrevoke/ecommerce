@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters, library_private_types_in_public_api, unnecessary_const
+
 import 'package:ecommerce/cart_page.dart';
 import 'package:ecommerce/color_button_row.dart';
 import 'package:ecommerce/gender_button_row.dart';
@@ -92,7 +94,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     IconButton(
                       icon: const Icon(Icons.shopping_bag_outlined),
                       onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartPage()));
 
                         // Handle shopping bag button press
                       },
@@ -188,7 +190,7 @@ class _FilterScreenState extends State<FilterScreen> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(153, 223, 222, 222),
+        color: const Color.fromARGB(153, 223, 222, 222),
         elevation: 0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,12 +206,12 @@ class _FilterScreenState extends State<FilterScreen> {
                   foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0),
-                    side: BorderSide(color: Colors.black),
+                    side: const BorderSide(color: Colors.black),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Reset',
-                  style: TextStyle(fontSize: 24),
+                  style: const TextStyle(fontSize: 24),
                 ),
               ),
             ),
@@ -230,7 +232,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                 ),
-                child: Text(
+                child: const Text(
                   'Apply',
                   style: TextStyle(fontSize: 24),
                 ),

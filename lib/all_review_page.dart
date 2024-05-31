@@ -1,10 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:ecommerce/cart_page.dart';
 import 'package:flutter/material.dart';
 
 class AllReviewsPage extends StatefulWidget {
   final dynamic reviews;
 
-  const AllReviewsPage({Key? key, required this.reviews}) : super(key: key);
+  const AllReviewsPage({super.key, required this.reviews});
 
   @override
   _AllReviewsPageState createState() => _AllReviewsPageState();
@@ -23,7 +25,7 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
     IconButton(
       icon: const Icon(Icons.shopping_bag_outlined),
       onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CartPage()));
 
         // Handle shopping bag button press
       },
@@ -50,7 +52,7 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
                       padding: const EdgeInsets.only(right: 15.0,left: 15),
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        leading: CircleAvatar(
+                        leading: const CircleAvatar(
                           radius: 27,
                           backgroundColor: Colors.grey,
                           child: Icon(Icons.account_circle),
@@ -59,10 +61,10 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
                           children: [
                             Text(
                               review['user'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(review['date']),
                           ],
                         ),
@@ -70,16 +72,16 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Rating(rating: review['rating'].toDouble()),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(review['review_text']),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                           ],
                         ),
                       ),
                     ),
                   );
                 } else {
-                  return SizedBox(); // Empty container if not matching the filter
+                  return const SizedBox(); // Empty container if not matching the filter
                 }
               },
             ),
@@ -92,7 +94,7 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
   Widget _buildFilterOptions() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
           _buildFilterOption('All'),
@@ -116,7 +118,7 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
           });
         },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           decoration: BoxDecoration(
           //  color: label == _selectedFilter ? Colors.blue : Colors.grey[300],
             borderRadius: BorderRadius.circular(20.0),
@@ -136,7 +138,7 @@ class _AllReviewsPageState extends State<AllReviewsPage> {
 class Rating extends StatelessWidget {
   final double rating;
 
-  Rating({required this.rating});
+  const Rating({super.key, required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -150,17 +152,17 @@ class Rating extends StatelessWidget {
         5,
         (index) {
           if (index < numberOfStars) {
-            return Icon(
+            return const Icon(
               Icons.star,
               color: Colors.amber,
             );
           } else if (hasHalfStar && index == numberOfStars) {
-            return Icon(
+            return const Icon(
               Icons.star_half,
               color: Colors.amber,
             );
           } else {
-            return Icon(
+            return const Icon(
               Icons.star_border,
               color: Colors.amber,
             );

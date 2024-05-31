@@ -1,10 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class ColorButtonsRow extends StatefulWidget {
   final String selectedColor;
   final Function(String) onColorSelected;
 
-  const ColorButtonsRow({Key? key, required this.selectedColor, required this.onColorSelected}) : super(key: key);
+  const ColorButtonsRow({super.key, required this.selectedColor, required this.onColorSelected});
 
   @override
   _ColorButtonsRowState createState() => _ColorButtonsRowState();
@@ -18,21 +20,21 @@ class _ColorButtonsRowState extends State<ColorButtonsRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           _buildColorButton('Black'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildColorButton('White'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildColorButton('Gray'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildColorButton('Green'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildColorButton('Blue'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildColorButton('Yellow'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildColorButton('Red'),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
         ],
       ),
     );
@@ -44,7 +46,7 @@ class _ColorButtonsRowState extends State<ColorButtonsRow> {
     return GestureDetector(
       onTap: () => widget.onColorSelected(colorOption),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
           color: isSelected ? Colors.black : Colors.white,
           borderRadius: BorderRadius.circular(20),

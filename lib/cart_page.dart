@@ -1,16 +1,20 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print
+
 import 'package:ecommerce/checkout_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CartPage extends StatefulWidget {
+  const CartPage({super.key});
+
   @override
   _CartPageState createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
   List<Map<String, dynamic>> _cartItems = []; // Placeholder for cart items
-  Map<String, String> _itemIds = {}; // Map to store item IDs
+  final Map<String, String> _itemIds = {}; // Map to store item IDs
 
   @override
   void initState() {
@@ -51,7 +55,7 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       drawerScrimColor: Colors.white,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Cart',
           style: TextStyle(color: Colors.black), // Optional: To set the title color
         ),
@@ -60,7 +64,7 @@ class _CartPageState extends State<CartPage> {
       ),
       backgroundColor: Colors.white, // Set background color to white
       body: _cartItems.isEmpty
-          ? Center(
+          ? const Center(
               child: Text('Your cart is empty'),
             )
           : ListView.builder(
@@ -70,39 +74,39 @@ class _CartPageState extends State<CartPage> {
               },
             ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(border: Border(top: BorderSide())),
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        decoration: const BoxDecoration(border: Border(top: BorderSide())),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
           children: [
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Grand Total:',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-                SizedBox(height: 4), // Adding some space between the two text widgets
+                const SizedBox(height: 4), // Adding some space between the two text widgets
                 Text(
                   '\$${totalCost.toStringAsFixed(2)}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                SizedBox(height: 8), // Adding some space between the total cost and the button
+                const SizedBox(height: 8), // Adding some space between the total cost and the button
               ],
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 // Implement navigation to the checkout page
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPage()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckoutPage()));
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black),
-                foregroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: WidgetStateProperty.all(Colors.black),
+                foregroundColor: WidgetStateProperty.all(Colors.white),
               ),
-              child: Text(
+              child: const Text(
                 'CHECK OUT',
                 style: TextStyle(fontSize: 18),
               ),
@@ -129,10 +133,10 @@ class _CartPageState extends State<CartPage> {
         _deleteItemFromDatabase(item);
       },
       background: Container(
-        color: Color.fromARGB(255, 223, 121, 113),
+        color: const Color.fromARGB(255, 223, 121, 113),
         alignment: Alignment.centerRight,
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Icon(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: const Icon(
           Icons.delete_outline,
           color: Colors.white,
         ),
@@ -140,10 +144,10 @@ class _CartPageState extends State<CartPage> {
       child: Card(
         color: Colors.white,
         elevation: 0, // Remove elevation
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
             vertical: 12.0, horizontal: 16.0), // Adjust margin
         child: ListTile(
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
               vertical: 8.0, horizontal: 16.0), // Adjust padding
           leading: Container(
             width: 100, // Adjust width
@@ -161,12 +165,12 @@ class _CartPageState extends State<CartPage> {
             children: [
               Text(
                 item['name'],
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 4.0),
+              const SizedBox(height: 4.0),
               Text(
                 '${item['brand']}, ${item['color']}, ${item['size']}',
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 14.0, color: Colors.grey), // Adjust font size
               ),
             ],
@@ -175,11 +179,11 @@ class _CartPageState extends State<CartPage> {
             children: [
               Text(
                 '\$${(item['price'] ?? 0).toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 16.0), // Adjust font size
+                style: const TextStyle(fontSize: 16.0), // Adjust font size
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
-                icon: Icon(Icons.remove_circle_outline),
+                icon: const Icon(Icons.remove_circle_outline),
                 onPressed: () {
                   if (quantity > 0) {
                     setState(() {
@@ -192,10 +196,10 @@ class _CartPageState extends State<CartPage> {
               ),
               Text(
                 '$quantity',
-                style: TextStyle(fontSize: 16.0), // Adjust font size
+                style: const TextStyle(fontSize: 16.0), // Adjust font size
               ),
               IconButton(
-                icon: Icon(Icons.add_circle_outline),
+                icon: const Icon(Icons.add_circle_outline),
                 onPressed: () {
                   setState(() {
                     quantity++;

@@ -4,9 +4,10 @@ class GenderButtonsRow extends StatefulWidget {
   final String selectedGender;
   final Function(String) onGenderSelected;
 
-  const GenderButtonsRow({Key? key, required this.selectedGender, required this.onGenderSelected}) : super(key: key);
+  const GenderButtonsRow({super.key, required this.selectedGender, required this.onGenderSelected});
 
   @override
+  // ignore: library_private_types_in_public_api
   _GenderButtonsRowState createState() => _GenderButtonsRowState();
 }
 
@@ -18,13 +19,13 @@ class _GenderButtonsRowState extends State<GenderButtonsRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           _buildGenderButton('man'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildGenderButton('woman'),
-          SizedBox(width: 20), // Adjust the width between buttons as needed
+          const SizedBox(width: 20), // Adjust the width between buttons as needed
           _buildGenderButton('unisex'),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
         ],
       ),
     );
@@ -36,7 +37,7 @@ class _GenderButtonsRowState extends State<GenderButtonsRow> {
     return GestureDetector(
       onTap: () => widget.onGenderSelected(genderOption),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
           color: isSelected ? Colors.black : Colors.white,
           borderRadius: BorderRadius.circular(20),

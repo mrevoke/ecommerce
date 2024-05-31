@@ -1,8 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CheckoutPage extends StatefulWidget {
+  const CheckoutPage({super.key});
+
   @override
   _CheckoutPageState createState() => _CheckoutPageState();
 }
@@ -43,13 +47,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Checkout'),
+        title: const Text('Checkout'),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
       body: _cartItems.isEmpty
-          ? Center(
+          ? const Center(
               child: Text('Your cart is empty'),
             )
           : ListView.builder(
@@ -57,10 +61,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   5, // Adding 4 for Information, Order Details, Subtotal, and Delivery
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
+                  return const Padding(
+                    padding: EdgeInsets.all(16.0),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10),
+                      padding: EdgeInsets.only(left: 10.0, right: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -76,7 +80,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             'Payment Method',
                             style: TextStyle(
                               fontSize: 20,
-                              color: const Color.fromARGB(255, 0, 0, 0),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                           Text(
@@ -92,7 +96,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             'Location',
                             style: TextStyle(
                               fontSize: 20,
-                              color: const Color.fromARGB(255, 0, 0, 0),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                           Text(
@@ -107,9 +111,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   );
                 } else if (index == 1) {
-                  return Padding(
+                  return const Padding(
                     padding:
-                        const EdgeInsets.only(left: 26.0, right: 16, bottom: 5),
+                        EdgeInsets.only(left: 26.0, right: 16, bottom: 5),
                     child: Text(
                       'Order Details',
                       style: TextStyle(
@@ -125,27 +129,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Payment Detail",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 24),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Sub Total',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 '\$${subtotal.toStringAsFixed(2)}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -162,17 +166,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       padding: const EdgeInsets.only(left: 10.0, right: 10),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'Shipping ',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Text(
                             '\$${shippingCost.toStringAsFixed(2)}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -188,24 +192,24 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           left: 10.0, right: 10, bottom: 20),
                       child: Column(
                         children: [
-                          Divider(
+                          const Divider(
                             thickness: 0.5,
                             color: Colors.black,
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Total Order ',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 '\$${grandTotal.toStringAsFixed(2)}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -224,7 +228,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               },
             ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -233,14 +237,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Grand Total',
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   '\$${grandTotal.toStringAsFixed(2)}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -253,11 +257,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 // Implement payment logic
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black),
-                foregroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: WidgetStateProperty.all(Colors.black),
+                foregroundColor: WidgetStateProperty.all(Colors.white),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
                 child: Text(
                   'PAYMENT',
                   style: TextStyle(fontSize: 18),
@@ -276,27 +280,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
     return Card(
       color: Colors.white,
       elevation: 0,
-      margin: EdgeInsets.symmetric(vertical: .0, horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: .0, horizontal: 16.0),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               item['name'],
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             Row(
               children: [
                 Text(
                   '${item['brand']}, ${item['color']}, ${item['size']}, Qty$quantity',
-                  style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                  style: const TextStyle(fontSize: 14.0, color: Colors.grey),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   '\$${item['price'].toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
