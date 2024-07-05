@@ -1,7 +1,7 @@
 ## E-Commerce App
 
 ### Project Overview
-This project is a Flutter mobile application developed for Priority Soft's developer test project. The app allows users to browse and purchase shoes from various brands, view product details, read and write reviews, manage a shopping cart, and proceed to checkout. 
+The app allows users to browse and purchase shoes from various brands, view product details, read and write reviews, manage a shopping cart, and proceed to checkout. 
 
 ### Tech Stack
 - Flutter for cross-platform mobile development.
