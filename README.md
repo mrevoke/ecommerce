@@ -1,4 +1,4 @@
-## E-Commerce App
+## shoesly (E-Commerce App)
 
 ### Project Overview
 The app allows users to browse and purchase shoes from various brands, view product details, read and write reviews, manage a shopping cart, and proceed to checkout. 
